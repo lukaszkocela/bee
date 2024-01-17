@@ -1,13 +1,13 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+//import reactLogo from "./assets/react.svg";
+//import viteLogo from "/vite.svg";
 import "./App.css";
 import CounterCard from "./components/CounterCard";
 
 function App() {
   const INIT_COUNT = 0;
   const INIT_COUNT2 = Math.floor(Math.random() * 10);
-  const INIT_COUNT3 = Math.floor(Math.random() * 10);
+  const INIT_COUNT3 = Math.floor(Math.random() * 100);
 
   const [count, setCount] = useState(INIT_COUNT);
   const [count2, setCount2] = useState(INIT_COUNT);
@@ -23,53 +23,45 @@ function App() {
   const multiplication = () => setCount5((count5) => count5 * 2);
   const division = () => setCount6((count6) => count6 / 2);
 
-  const createResetFunction = (setCount, initialValue) => () =>
-    setCount(() => initialValue);
-
-  const reset = createResetFunction(setCount, INIT_COUNT);
-  const reset2 = createResetFunction(setCount2, INIT_COUNT);
-  const reset3 = createResetFunction(setCount3, INIT_COUNT);
-  const reset4 = createResetFunction(setCount4, INIT_COUNT);
-  const reset5 = createResetFunction(setCount5, INIT_COUNT2);
-  const reset6 = createResetFunction(setCount6, INIT_COUNT3);
+  const reset = (setCount, initialValue) => () => setCount(() => initialValue);
 
   return (
     <>
       <CounterCard
-        label="count is (+1)"
+        label="count (+1) is...  "
         value={count}
         onIncrement={increment}
-        onReset={reset}
+        onReset={reset(setCount, INIT_COUNT)}
       />
       <CounterCard
-        label="count is (+5)"
+        label="count (+5) is...  "
         value={count2}
         onIncrement={incrementPlusFive}
-        onReset={reset2}
+        onReset={reset(setCount2, INIT_COUNT)}
       />
       <CounterCard
-        label="count is (-1)"
+        label="count (-1) is...  "
         value={count3}
         onIncrement={substraction}
-        onReset={reset3}
+        onReset={reset(setCount3, INIT_COUNT)}
       />
       <CounterCard
-        label="count is (-5)"
+        label="count (-5) is...  "
         value={count4}
         onIncrement={substractionMinusFive}
-        onReset={reset4}
+        onReset={reset(setCount4, INIT_COUNT)}
       />
       <CounterCard
-        label="count is (x2)"
+        label="count (x2) is...  "
         value={count5}
         onIncrement={multiplication}
-        onReset={reset5}
+        onReset={reset(setCount5, INIT_COUNT2)}
       />
       <CounterCard
-        label="count is (/2)"
+        label="count (/2) is...  "
         value={count6}
         onIncrement={division}
-        onReset={reset6}
+        onReset={reset(setCount6, INIT_COUNT3)}
       />
     </>
   );
