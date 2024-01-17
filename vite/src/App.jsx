@@ -2,13 +2,13 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import CounterCard from "./components/CounterCard";
 
 function App() {
   const INIT_COUNT = 0;
   const INIT_COUNT2 = Math.floor(Math.random() * 10);
   const INIT_COUNT3 = Math.floor(Math.random() * 10);
 
-  // DATA TIER
   const [count, setCount] = useState(INIT_COUNT);
   const [count2, setCount2] = useState(INIT_COUNT);
   const [count3, setCount3] = useState(INIT_COUNT);
@@ -16,48 +16,61 @@ function App() {
   const [count5, setCount5] = useState(INIT_COUNT2);
   const [count6, setCount6] = useState(INIT_COUNT3);
 
-  // (BUSINESS) LOGIC TIER
   const increment = () => setCount((count) => count + 1);
   const incrementPlusFive = () => setCount2((count2) => count2 + 5);
   const substraction = () => setCount3((count3) => count3 - 1);
   const substractionMinusFive = () => setCount4((count4) => count4 - 5);
   const multiplication = () => setCount5((count5) => count5 * 2);
   const division = () => setCount6((count6) => count6 / 2);
-  const reset = () => setCount(() => INIT_COUNT);
-  const reset2 = () => setCount2(() => INIT_COUNT);
-  const reset3 = () => setCount3(() => INIT_COUNT);
-  const reset4 = () => setCount4(() => INIT_COUNT);
-  const reset5 = () => setCount5(() => INIT_COUNT2);
-  const reset6 = () => setCount6(() => INIT_COUNT3);
 
-  // PRESENTATION TIER
+  const createResetFunction = (setCount, initialValue) => () =>
+    setCount(() => initialValue);
+
+  const reset = createResetFunction(setCount, INIT_COUNT);
+  const reset2 = createResetFunction(setCount2, INIT_COUNT);
+  const reset3 = createResetFunction(setCount3, INIT_COUNT);
+  const reset4 = createResetFunction(setCount4, INIT_COUNT);
+  const reset5 = createResetFunction(setCount5, INIT_COUNT2);
+  const reset6 = createResetFunction(setCount6, INIT_COUNT3);
 
   return (
     <>
-      <div className="card">
-        <button onClick={increment}>count is (+1){count}</button>
-        <button onClick={reset}>reset</button>
-      </div>
-      <div className="card">
-        <button onClick={incrementPlusFive}>count is (+5){count2}</button>
-        <button onClick={reset2}>reset</button>
-      </div>
-      <div className="card">
-        <button onClick={substraction}>count is (-1){count3}</button>
-        <button onClick={reset3}>reset</button>
-      </div>
-      <div className="card">
-        <button onClick={substractionMinusFive}>count is (-5){count4}</button>
-        <button onClick={reset3}>reset</button>
-      </div>
-      <div className="card">
-        <button onClick={multiplication}>count is (x2){count5}</button>
-        <button onClick={reset5}>reset</button>
-      </div>
-      <div className="card">
-        <button onClick={division}>count is (/2) {count6}</button>
-        <button onClick={reset6}>reset</button>
-      </div>
+      <CounterCard
+        label="count is (+1)"
+        value={count}
+        onIncrement={increment}
+        onReset={reset}
+      />
+      <CounterCard
+        label="count is (+5)"
+        value={count2}
+        onIncrement={incrementPlusFive}
+        onReset={reset2}
+      />
+      <CounterCard
+        label="count is (-1)"
+        value={count3}
+        onIncrement={substraction}
+        onReset={reset3}
+      />
+      <CounterCard
+        label="count is (-5)"
+        value={count4}
+        onIncrement={substractionMinusFive}
+        onReset={reset4}
+      />
+      <CounterCard
+        label="count is (x2)"
+        value={count5}
+        onIncrement={multiplication}
+        onReset={reset5}
+      />
+      <CounterCard
+        label="count is (/2)"
+        value={count6}
+        onIncrement={division}
+        onReset={reset6}
+      />
     </>
   );
 }
