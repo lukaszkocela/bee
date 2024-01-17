@@ -16,12 +16,18 @@ function App() {
   const [count5, setCount5] = useState(INIT_COUNT2);
   const [count6, setCount6] = useState(INIT_COUNT3);
 
-  const increment = () => setCount((count) => count + 1);
-  const incrementPlusFive = () => setCount2((count2) => count2 + 5);
-  const substraction = () => setCount3((count3) => count3 - 1);
-  const substractionMinusFive = () => setCount4((count4) => count4 - 5);
-  const multiplication = () => setCount5((count5) => count5 * 2);
-  const division = () => setCount6((count6) => count6 / 2);
+  const mathFunction = (setState, mathOperation) => {
+    return () => {
+      setState((operation) => mathOperation(operation));
+    };
+  };
+
+  const increment = mathFunction(setCount, (count) => count + 1);
+  const incrementPlusFive = mathFunction(setCount2, (count) => count + 5);
+  const subtraction = mathFunction(setCount3, (count) => count - 1);
+  const subtractionMinusFive = mathFunction(setCount4, (count) => count - 5);
+  const multiplication = mathFunction(setCount5, (count) => count * 2);
+  const division = mathFunction(setCount6, (count) => count / 2);
 
   const reset = (setCount, initialValue) => () => setCount(() => initialValue);
 
@@ -42,13 +48,13 @@ function App() {
       <CounterCard
         label="count (-1) is...  "
         value={count3}
-        onIncrement={substraction}
+        onIncrement={subtraction}
         onReset={reset(setCount3, INIT_COUNT)}
       />
       <CounterCard
         label="count (-5) is...  "
         value={count4}
-        onIncrement={substractionMinusFive}
+        onIncrement={subtractionMinusFive}
         onReset={reset(setCount4, INIT_COUNT)}
       />
       <CounterCard
